@@ -2,8 +2,9 @@ import "express-async-errors";
 import express from "express";
 import * as dotenv from "dotenv";
 dotenv.config();
+import path from "path";
 import { app, server } from "./socket/socket.js";
-import morgan from "morgan";
+// import morgan from "morgan";
 import cookieParser from "cookie-parser";
 
 // db
@@ -18,7 +19,9 @@ import userRouter from "./routes/userRouter.js";
 import errorHandlerMiddleware from "./middlewares/errorHandlerMiddleware.js";
 import { authenticateUser } from "./middlewares/authMiddleware.js";
 
-app.use(morgan("dev"));
+const __dirname = path.resolve();
+
+// app.use(morgan("dev"));
 app.use(cookieParser());
 app.use(express.json());
 
@@ -26,8 +29,10 @@ app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/messages", authenticateUser, messageRouter);
 app.use("/api/v1/users", userRouter);
 
+app.use(express.static(path.join(__dirname, "/frontend/dist")));
+
 app.use("*", (req, res) => {
-  res.status(404).json({ msg: "Not found" });
+  res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
 });
 
 app.use(errorHandlerMiddleware);
