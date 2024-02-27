@@ -2,6 +2,7 @@ import { StatusCodes } from "http-status-codes";
 import Conversation from "../models/ConversationModel.js";
 import Message from "../models/MessageModel.js";
 import { NotFoundError } from "../errors/customError.js";
+import { getReceiverId, io } from "../socket/socket.js";
 
 export const sendMessage = async (req, res) => {
   const { message } = req.body;
@@ -28,6 +29,11 @@ export const sendMessage = async (req, res) => {
   //   await newMessage.save();
   //   await conversation.save();
   await Promise.all([conversation.save(), newMessage.save()]);
+
+  const receiverSocketId = getReceiverId(receiverId);
+  if (receiverSocketId) {
+    io.to(receiverSocketId).emit("newMessage", newMessage);
+  }
 
   res.status(StatusCodes.OK).json(newMessage);
 };

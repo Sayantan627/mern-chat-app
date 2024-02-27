@@ -2,7 +2,7 @@ import "express-async-errors";
 import express from "express";
 import * as dotenv from "dotenv";
 dotenv.config();
-const app = express();
+import { app, server } from "./socket/socket.js";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 
@@ -34,7 +34,7 @@ app.use(errorHandlerMiddleware);
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   connectDB();
   console.log(`Server is listening on port ${PORT}...`);
 });
