@@ -53,5 +53,5 @@ export const logout = (req, res) => {
     httpOnly: true,
     maxAge: 0,
   });
-  res.status(StatusCodes.OK).json({ msg: "logged out successfully" });
+  res.status(StatusCodes.OK).json({ msg: "Logged out successfully" });
 };
