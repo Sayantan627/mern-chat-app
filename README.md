@@ -4,9 +4,13 @@ This is a real-time chat application that allows users to connect with each othe
 
 ## Live Site URL
 
-![MERNChat](https://mern-chat-app-2n65.onrender.com)
+[MERNChat](https://mern-chat-app-2n65.onrender.com)
 
 ## Screenshots
+
+![SignUp-screenshot](/screenshots/3.png)
+![Chat-screenshot-1](/screenshots/1.png)
+![Chat-screenshot-2](/screenshots/2.png)
 
 ## Technologies Used
 
